@@ -7,7 +7,7 @@ Content-Type: application/json
     "password": "password"
 }
 
-### Signin
+### Sign in as existing user
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
@@ -16,8 +16,14 @@ Content-Type: application/json
     "password": "password"
 }
 
+### Get the currently signed in user
+GET http://localhost:3000/auth/whoAmI
+
 ### Find a particular user with a given ID
 GET http://localhost:3000/auth/1
+
+### Sign out
+POST http://localhost:3000/auth/signout
 
 ### Find all users with a given email
 GET http://localhost:3000/auth?email=test@email.com
