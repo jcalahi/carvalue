@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Report } from './report.entity.js';
 import { CreateReportDto } from './dtos/create-report.dto.js';
 import { User } from '../users/user.entity.js';
+import { ApproveReportDto } from './dtos/approve-report.dto.js';
 
 @Injectable()
 export class ReportsService {
@@ -15,6 +16,17 @@ export class ReportsService {
     const report = this.repo.create(reportDto);
     report.user = user;
 
+    return this.repo.save(report);
+  }
+
+  async changeApproval(id: string, approved: boolean) {
+    const report = await this.repo.findOne({ where: { id: Number(id) } });
+
+    if (!report) {
+      throw new NotFoundException('Report not found.');
+    }
+
+    report.approved = approved;
     return this.repo.save(report);
   }
 
