@@ -3,7 +3,7 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "hello@email.com",
+    "email": "welcome@email.com",
     "password": "password"
 }
 
@@ -20,7 +20,7 @@ Content-Type: application/json
 GET http://localhost:3000/auth/whoAmI
 
 ### Find a particular user with a given ID
-GET http://localhost:3000/auth/1
+GET http://localhost:3000/auth/6
 
 ### Sign out
 POST http://localhost:3000/auth/signout
