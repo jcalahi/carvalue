@@ -1,0 +1,12 @@
+POST http://localhost:3000/reports
+Content-Type: application/json
+
+{
+  "make": "Nissan",
+  "model": "S13",
+  "year": 1995,
+  "mileage": 10000,
+  "lat": 0,
+  "lng": 0,
+  "price": 15000
+}

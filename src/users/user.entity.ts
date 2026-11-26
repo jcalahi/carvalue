@@ -6,7 +6,10 @@ import {
   AfterInsert,
   AfterRemove,
   AfterUpdate,
+  OneToMany,
 } from 'typeorm';
+import type { Relation } from 'typeorm';
+import { Report } from '../reports/report.entity.js';
 
 @Entity()
 export class User {
@@ -19,6 +22,9 @@ export class User {
   @Column()
   @Exclude()
   password: string;
+
+  @OneToMany(() => Report, (report) => report.user)
+  reports: Relation<Report[]>;
 
   @AfterInsert()
   logInsert() {
