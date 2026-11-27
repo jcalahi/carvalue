@@ -5,12 +5,27 @@ import { Report } from './report.entity.js';
 import { CreateReportDto } from './dtos/create-report.dto.js';
 import { User } from '../users/user.entity.js';
 import { ApproveReportDto } from './dtos/approve-report.dto.js';
+import { GetEstimateDto } from './dtos/get-estimate.dto.js';
 
 @Injectable()
 export class ReportsService {
   constructor(
     @InjectRepository(Report) private readonly repo: Repository<Report>,
   ) {}
+
+  createEstimate({ lat, lng, make, mileage, model, year }: GetEstimateDto) {
+    return this.repo
+      .createQueryBuilder()
+      .select('*')
+      .where('make = :make', { make })
+      .andWhere('model = := model', { model })
+      .andWhere('lng - :lng BETWEEN -5 and 5', { lng })
+      .andWhere('lat - :lat BETWEEN -5 and 5', { lat })
+      .andWhere('year - :year BETWEEN -3 and 3', { year })
+      .orderBy('ABS(mileage = :mileage)', 'DESC')
+      .setParameters({ mileage })
+      .getRawMany();
+  }
 
   create(reportDto: CreateReportDto, user: User) {
     const report = this.repo.create(reportDto);
